@@ -6,11 +6,18 @@
 
 平台为阿里云百炼，语言模型qwen-max，嵌入模型使用text-embedding-v2
 
-向量数据库：redis stack 7.4.2
+向量数据库：redis stack 7.4.2 (可选)
 
 相关文档：[官方文档langchain4j](https://docs.langchain4j.dev/get-started)
 
-项目地址：[gitee](https://gitee.com/wujialia/langchain4j-springboot-example)  | [github](https://github.com/jialiawu/langchain4j-springboot-example.git)
+原项目地址：[gitee](https://gitee.com/wujialia/langchain4j-springboot-example)  | [github](https://github.com/jialiawu/langchain4j-springboot-example.git)
+
+现项目地址: [github](https://github.com/zhangtc33333/langchain4j-java.git)
+
+
+**与原项目的区别?**
+
+1、原项目需安装redis 且必须包括redisearch 通过查询资料发现 redisearch编译不支持windows环境，所以为方便测试，把原有的redis删除，向量数据存放至本地内存中。
 
 
 
@@ -92,7 +99,7 @@
 
 1、**（必选）**从阿里百炼获取到apikey，设置到系统环境变量API_KEY_DASH_SCOPE，也可将配置文件中的API_KEY_DASH_SCOPE替换为自己的apikey
 
-2、**（必选）**安装redis stack 7.4.2
+2、（可选）安装redis stack 7.4.2  （非reids的情况下，向量数据存放在本地内存中仅供测试使用）
 
 ```
 docker pull redis/redis-stack
