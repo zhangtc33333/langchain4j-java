@@ -1,0 +1,39 @@
+# Redis with RediSearch Docker Compose 配置
+# 如果需要使用 Redis 向量存储，请使用此配置启动 Redis
+
+version: '3.8'
+
+services:
+  redis-stack:
+    image: redis/redis-stack:latest
+    container_name: redis-stack
+    ports:
+      - "6379:6379"    # Redis 端口
+      - "8001:8001"    # RedisInsight 管理界面
+    environment:
+      - REDIS_ARGS=--requirepass yourpassword  # 设置 Redis 密码
+    volumes:
+      - redis-data:/data
+    restart: unless-stopped
+
+  # 或者使用纯 RediSearch 模块的 Redis
+  redis-with-search:
+    image: redislabs/redisearch:latest
+    container_name: redis-search
+    ports:
+      - "6380:6379"    # 使用不同端口避免冲突
+    volumes:
+      - redis-search-data:/data
+    restart: unless-stopped
+    profiles:
+      - alternative
+
+volumes:
+  redis-data:
+  redis-search-data:
+
+# 使用方法:
+# 1. 启动 Redis Stack (推荐): docker-compose up redis-stack -d
+# 2. 启动纯 RediSearch: docker-compose --profile alternative up redis-with-search -d
+# 3. 停止: docker-compose down
+
